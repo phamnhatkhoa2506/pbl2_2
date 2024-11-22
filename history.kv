@@ -1,0 +1,51 @@
+#:set BG_COLOR 1, 1, 1
+#:set BG_TITLE_COLOR .2, .2, .2
+
+<HistoryWindow>:
+    name: "history"
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgb: BG_TITLE_COLOR
+            Rectangle:
+                size: self.size
+        BoxLayout:
+            size_hint: 1, .2
+            orientation: 'horizontal' 
+            ImageButton:
+                source: 'assets/images/icon/icon.png'
+                color: 1.5, 1.5, 1.5, 1
+                size_hint: .2, 1
+            Label:
+                text: "Ghibli"
+                font_name: "assets/fonts/K2D-Bold.ttf"
+                font_size: dp(80)
+                size_hint: .2, 1
+            Label:
+                text: "Lịch sử đặt vé"
+                size_hint: .8, 1
+                font_name: "assets/fonts/Kanit-Bold.ttf"
+                font_size: dp(40)
+            BoxLayout:
+                size_hint: .2, 1
+                Button:
+                    text: "Quay lại"
+                    size_hint: None, .3
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    font_name: "assets/fonts/Roboto-BoldItalic.ttf"
+                    on_release:
+                        app.root.current = "home"
+                        root.manager.transition.direction = "right"
+        RelativeLayout: 
+            canvas.before:
+                Color:
+                    rgb: BG_COLOR
+                Rectangle:
+                    size: self.size
+            ScrollView:
+                History:
+                    id: history
+                    size_hint: 1, None
+    
+            

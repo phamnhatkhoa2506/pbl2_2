@@ -1,0 +1,150 @@
+#:set F_KTWOD_PATH "assets/fonts/K2D-"
+#:set F_KANIT_PATH "assets/fonts/Kanit-"
+#:set F_ROBOTO_PATH "assets/fonts/Roboto-"
+#:set IMAGE_BG_PATH 'assets/images/background/'
+#:set BG_COLOR .7, .7, .7, 1
+#:set LOGINFORM_SIZE_HINT None, None
+#:set LOGINFORM_SIZE dp(350), dp(450)
+#:set LOGINFORM_POS_HINT {'center_x': 0.5,'center_y': 0.5}
+#:set LOGINFORM_SIZE_HINT None, None
+#:set LOGINFORM_ELEVATION 10
+#:set LOGINFORM_PADDING dp(25)
+#:set LOGINFORM_SPACING dp(25)
+#:set BACK_BUTTON_SIZE_HINT None, None
+#:set BACK_BUTTON_POS_HINT {'center_x': .5, 'center_y': .23}
+
+<LoginWindow>:
+    name: 'login'
+    Image:
+        source: IMAGE_BG_PATH +'loginbg.webp'
+        size: self.size
+        pos: self.pos
+        color: BG_COLOR
+    MDCard:
+        size_hint: LOGINFORM_SIZE_HINT
+        size: LOGINFORM_SIZE
+        pos_hint: LOGINFORM_POS_HINT
+        elevation: LOGINFORM_ELEVATION
+        padding: LOGINFORM_PADDING
+        spacing: LOGINFORM_SPACING
+        orientation: 'vertical'
+        ripple_behavior: False
+        focus_behavior: False
+
+    MDIconButton:
+        text: "Back"
+        icon: "chevron-down"
+        size_hint: BACK_BUTTON_SIZE_HINT
+        pos_hint: BACK_BUTTON_POS_HINT
+        on_release: 
+            app.root.current = "home"
+            root.manager.transition.direction = "up"
+    Label:
+        text: "Quay lại"
+        size_hint: None, None
+        pos_hint: {'center_x': .5, 'center_y': .27}
+        font_name: F_ROBOTO_PATH + "Medium.ttf"
+        color: .1, .1, .1
+        font_size: dp(15)
+        
+    Label:
+        id: welcome_label
+        text: "Đăng nhập"
+        font_size: dp(30)
+        halign: 'center'
+        size_hint: None, None
+        pos_hint: {'center_x': .5, 'center_y': .77}
+        width: dp(300)
+        font_name: F_ROBOTO_PATH + "Medium.ttf"
+        color: .2, .2, .2
+
+    TextInput:
+        id: username
+        hint_text: "Tên đăng nhập"
+        background_color: 0, 0, 0, 0
+        multiline: False
+        size_hint: .2, None
+        height: dp(50) 
+        pos_hint: {'center_x': .5, 'center_y': .65}
+        padding: dp(50), dp(16.5), dp(20), dp(10)
+        canvas.before:
+            Color:
+                rgba:  .8, .8, .8, 1
+            RoundedRectangle: 
+                size: self.size
+                pos: self.pos
+                radius: 30, 
+            Color:
+                rgba:  .1, .1 , .1, 1
+    FloatLayout:
+        MDIconButton:
+            icon: 'account-circle'
+            markup: True
+            pos_hint: {'center_x': .42, 'center_y': .65}
+
+    TextInput:
+        id: password
+        hint_text: "Mật khẩu"
+        multiline: False
+        background_color: 0, 0, 0, 0
+        size_hint: .2, None
+        height: dp(50) 
+        pos_hint: {'center_x': .5, 'center_y': .55}
+        padding: dp(50), dp(16.5), dp(20), dp(10)
+        canvas.before:
+            Color:
+                rgba:  .8, .8, .8, 1
+            RoundedRectangle: 
+                size: self.size
+                pos: self.pos
+                radius: 30, 
+            Color:
+                rgba:  .1, .1 , .1, 1
+
+    FloatLayout:
+        MDIconButton:
+            icon: 'lock-outline'
+            markup: True
+            pos_hint: {'center_x': .42, 'center_y': .55}
+
+    Label:
+        id: login_status
+        text: ""
+        font_name: F_ROBOTO_PATH + "Medium"
+        font_size: dp(12)
+        color: 1, 0, 0
+        pos_hint: {"center_x": .5, 'center_y': .47}
+        size_hint: None, None
+
+    Button:
+        id: sign_in
+        text: "Đăng nhập"
+        font_size: dp(15)
+        font_name: F_ROBOTO_PATH + "Medium"
+        pos_hint: {"center_x": .5, 'center_y': .40}
+        size_hint: None, None
+        height: dp(35)
+        width: dp(100)
+        background_color: .1, .1, .1
+        on_press: root.get_input()
+
+    Label:
+        text: "Chưa có tài khoản, "
+        font_name: F_ROBOTO_PATH + "Medium"
+        font_size: dp(15)
+        color: .2, .2, .2
+        pos_hint: {"center_x": .48, 'center_y': .32}
+        size_hint: None, None
+
+    Button:
+        id: sign_up
+        text: "Đăng ký"
+        font_size: dp(13)
+        font_name: F_ROBOTO_PATH + "Medium"
+        pos_hint: {"center_x": .55, 'center_y': .32}
+        size_hint: None, None
+        height: dp(25)
+        width: dp(60)
+        background_color: .8, .8, .8, .4
+        color: .1, .1, .1
+        on_press: root.to_sign_up_page()

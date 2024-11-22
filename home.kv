@@ -1,0 +1,89 @@
+#:set HOME_CANVAS_BEFORE_COLOR 1.5, 1.5, 1.5, 1
+#:set ICON_IMAGE_PATH "assets/images/icon/icon.png"
+#:set ICON_IMAGE_SIZE dp(100), dp(100)
+#:set JOY_LABEL_SIZE dp(300), dp(150)
+#:set FONT_KTWOD_PATH "assets/fonts/K2D-"
+#:set FONT_ROBOTO_PATH "assets/fonts/Roboto-"
+#:set HEADER_SIZE_HINT 1, .3
+#:set GHIBLI_FONT_SIZE dp(80)
+#:set GHIBLI_SIZE_HINT 0.5, 1
+#:set BUTTON_BAR_POS_HINT {'center_x': 0.0,'center_y': 0.5}
+#:set BUTTON_BAR_SIZE_HINT 1, 0.5
+#:set BUTTON_BAR_PADDING dp(10)
+#:set BUTTON_SIZE_HINT .5, 1
+#:set BUTTON_FONT_SIZE dp(20)
+#:set BUTTON_BG_COLOR .4, .4, .4, 1
+#:set BUTTON_TEXT_COLOR .9, .9, .9, 1
+<HomeWindow>:
+    name: "home"
+    Home:
+        orientation: 'vertical'
+        # Vẽ nền: ảnh nền và joy_label
+        canvas.before:
+            Rectangle: # Ảnh nền
+                source: self.image_path
+                size: self.size
+            Color: # Làm sáng ảnh 
+                rgba: HOME_CANVAS_BEFORE_COLOR
+            Rectangle: # Icon ứng dụng
+                source: ICON_IMAGE_PATH
+                pos: 0, self.height - dp(100)
+                size: ICON_IMAGE_SIZE
+            Rectangle: # Joy Label
+                texture: self.joy_label
+                size: JOY_LABEL_SIZE
+                pos: self.width - 500, self.height / 2 - dp(75)
+        BoxLayout: # Phần tiêu đề trên của trang Home: Header
+            orientation: "horizontal"    
+            size_hint: HEADER_SIZE_HINT
+            Label: # Dòng chữ Ghibli
+                text: "Ghibli"
+                font_name: FONT_KTWOD_PATH + "Bold.ttf"
+                font_size: GHIBLI_FONT_SIZE
+                size_hint: GHIBLI_SIZE_HINT
+            BoxLayout: # Button Bar: Thanh chứa các nút chuyển trang
+                orientation: "horizontal"   
+                pos_hint: BUTTON_BAR_POS_HINT
+                padding: BUTTON_BAR_PADDING
+                size_hint: BUTTON_BAR_SIZE_HINT
+                RelativeLayout:
+                    RoundedButton: # Nút Đặt vé
+                        text: "Đặt vé"
+                        on_release: 
+                            app.root.current = "movies_showing"
+                            root.manager.transition.direction = "up"
+                RelativeLayout:
+                    RoundedButton: # Nút Đặt đồ ăn
+                        id: history_button
+                        text: "Lịch sử đặt"
+                        on_release:
+                            app.root.current = "history"
+                            root.manager.transition.direction = "left"
+                        disabled: 'True'
+                RelativeLayout: # Khu vực chưa nút đăng nhập và đăng xuất chồng lên nhau
+                    id: sign_out_button_layout
+                    RoundedButton: # Nút Đăng xuất nằm trên
+                        id: sign_out_button
+                        text: "Đăng xuất"
+                        on_press: root.sign_out()       
+                    RoundedButton: # Nút Đăng nhập nằm dưới
+                        id: sign_in_button
+                        text: "Đăng nhập"
+                        on_release: 
+                            app.root.current = "login"
+                            root.manager.transition.direction = "down"
+        RelativeLayout:
+        RelativeLayout:
+
+# Nút trên thanh button bar
+<RoundedButton@Button>:
+    font_name: FONT_ROBOTO_PATH + "BoldItalic.ttf"
+    size_hint: BUTTON_SIZE_HINT
+    font_size: BUTTON_FONT_SIZE
+    background_color: BUTTON_BG_COLOR
+    color: BUTTON_TEXT_COLOR
+
+
+    
+
+
